@@ -6,27 +6,30 @@ import MyOrders from "../MyOrders";
 import NotFound from "../NotFound";
 import SignIn from "../SignIn";
 import Navbar from "../../Components/Navbar";
-import "./App.css"; 
+import Layout from "../../Components/Layout";
+import "./App.css";
 
-const AppRoutes = () =>{
+const AppRoutes = () => {
   let routes = useRoutes([
-    {path: '/', element: <Home/>},
-    {path: '/my-account', element: <MyAccount/>},
-    {path: '/my-order', element: <MyOrder/>},
-    {path: '/my-orders', element: <MyOrders/>},
-    {path: '/sign-in', element: <SignIn/>},
-    {path: '/*', element: <NotFound/>}
-  ])
+    { path: "/", element: <Home /> },
+    { path: "/my-account", element: <MyAccount /> },
+    { path: "/my-order", element: <MyOrder /> },
+    { path: "/my-orders", element: <MyOrders /> },
+    { path: "/sign-in", element: <SignIn /> },
+    { path: "/*", element: <NotFound /> },
+  ]);
 
-  return routes
-} 
+  return routes;
+};
 
 function App() {
   return (
-  <BrowserRouter>
-    <AppRoutes/>
-    <Navbar/>
-  </BrowserRouter>
+    <BrowserRouter>
+      <Navbar />
+      <Layout>
+        <AppRoutes />
+      </Layout>
+    </BrowserRouter>
   );
 }
 
