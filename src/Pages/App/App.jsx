@@ -1,4 +1,5 @@
 import { useRoutes, BrowserRouter } from "react-router-dom";
+import { EcommerceProvider } from "../../EcommerceContext";
 import Home from "../Home";
 import MyAccount from "../MyAccount";
 import MyOrder from "../MyOrder";
@@ -7,6 +8,8 @@ import NotFound from "../NotFound";
 import SignIn from "../SignIn";
 import Navbar from "../../Components/Navbar";
 import Layout from "../../Components/Layout";
+import ProductDetail from "../../Components/ProductDetail";
+import CheckoutSideMenu from "../../Components/CheckoutSideMenu";
 import "./App.css";
 
 const AppRoutes = () => {
@@ -24,12 +27,16 @@ const AppRoutes = () => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Layout>
-        <AppRoutes />
-      </Layout>
-    </BrowserRouter>
+    <EcommerceProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Layout>
+          <AppRoutes />
+          <ProductDetail />
+          <CheckoutSideMenu/> 
+        </Layout>
+      </BrowserRouter>
+    </EcommerceProvider>
   );
 }
 

@@ -1,11 +1,16 @@
 import { NavLink } from "react-router-dom";
+import { EcommerceContext } from "../../EcommerceContext/EcommerceContext";
+import { useContext } from "react";
+import { ShoppingBagIcon } from '@heroicons/react/24/outline'
+
 
 const Navbar = () => {
     const activeStyle = 'underline underline-offset-4'
+    const context = useContext(EcommerceContext)
     
     
     return (
-        <nav className="flex justify-between items-center fixed top-0 z-10 w-full py-5 px-8 text-sm font-light">
+        <nav className="flex justify-between items-center fixed top-0 z-10 w-full py-5 px-8 text-sm font-light bg-white">
             <ul className="flex items-center gap-3">
                 <li className="font-bold text-lg">
                     <NavLink to='/'>
@@ -57,7 +62,7 @@ const Navbar = () => {
             </ul>
             <ul className="flex items-center gap-3">
                 <li className="text-black/60">
-                   pjfanchile@gmail.com
+                   fuzzdev@gmail.com
                 </li>
                 <li>
                     <NavLink 
@@ -80,12 +85,15 @@ const Navbar = () => {
                         Sign In
                     </NavLink>
                 </li>
-                <li>
-                    🛒0 
+                <li className="flex items-center gap-2">
+                    <ShoppingBagIcon onClick={() => context.openCheckoutSideMenu()} className="w-5 h-5 cursor-pointer"/> {context.count} 
                 </li>
             </ul>
         </nav>
     )
 }
+
+
+
 
 export default Navbar 
