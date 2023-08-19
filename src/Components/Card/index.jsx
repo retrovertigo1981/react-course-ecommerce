@@ -19,8 +19,8 @@ const Card = (product) => {
     const isInCart = context.cartProducts.filter(product =>product.id === id).length > 0;
     if (isInCart) {
       return (
-        <div className="absolute top-0 right-0 m-2 flex cursor-pointer justify-center items-center font-bold text-sm bg-white w-6 h-6 rounded-full transition-transform transform scale-110 ">
-          <CheckIcon className="w-4 h-4 text-black" />
+        <div className="absolute top-0 right-0 m-2 flex cursor-pointer justify-center items-center font-bold text-sm bg-black w-6 h-6 rounded-full transition-transform transform scale-110 ">
+          <CheckIcon className="w-4 h-4 text-white" />
         </div>
       );
     } else {

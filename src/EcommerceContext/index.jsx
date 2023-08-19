@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { EcommerceContext } from "./EcommerceContext";
+import { totalPrice } from "../utils/index.js";
 import PropTypes from "prop-types";
+
 
 const EcommerceProvider = ({children}) => {
     // Product Quantity
@@ -26,21 +28,42 @@ const EcommerceProvider = ({children}) => {
 
     const [cartProducts, setCartProducts] = useState([])
 
-    const removeFromCart = (title) => {
-        const updatedCart = cartProducts.filter(item => item.title !== title);
+    // Deleting products from cart
+
+    const removeFromCart = (id) => {
+        const updatedCart = cartProducts.filter(item => item.id !== id);
         setCartProducts(updatedCart);
         setCount(count - 1);
     };
 
-    // const deleteProduct = () => {
-    //     const newCartProducts = [...cartProducts];
-    //     const productIdex = newCartProducts.findIndex((product) => product.index);
-    //     newCartProducts.splice(productIdex, 1);
-    //     setCartProducts(newCartProducts);
-    
-        
+    // Shopping Cart - Order
 
-    // };
+    const [order, setOrder] = useState([])
+
+    const handleCheckout = () => {
+
+        if (cartProducts.length === 0) {
+            alert("El carrito de productos está vacío. Agrega productos antes de realizar el pedido.");
+            return; // Detener la función si el carrito está vacío
+        }
+        
+        const currentDate = new Date();
+        const formattedDate = `${currentDate.getDate().toString().padStart(2, '0')}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getFullYear()}`;
+        
+        const orderToAdd = {
+            date: formattedDate,
+            products: cartProducts,
+            totalProducts: cartProducts.length,
+            totalPrice: totalPrice(cartProducts).toFixed(2)
+        }
+        setOrder([...order, orderToAdd])
+        setCartProducts([])
+        setCount(0)
+        closeCheckoutSideMenu()
+        
+    }
+
+    console.log(order);
     console.log(cartProducts)
 
     return (
@@ -57,7 +80,9 @@ const EcommerceProvider = ({children}) => {
             checkoutSideMenuOpen,
             openCheckoutSideMenu,
             closeCheckoutSideMenu,
-            removeFromCart
+            removeFromCart,
+            handleCheckout,
+            order                      
             
         }}>
             {children}

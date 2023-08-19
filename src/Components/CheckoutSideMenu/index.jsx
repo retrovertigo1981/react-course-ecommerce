@@ -1,11 +1,13 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { EcommerceContext } from "../../EcommerceContext/EcommerceContext";
 import { XCircleIcon } from "@heroicons/react/24/outline";
+import { totalPrice } from "../../utils/index.js";
 import OrderCard from "../OrderCard";
 
 const CheckoutSideMenu = () => {
   const context = useContext(EcommerceContext);
-  
+
   return (
     <aside
       className={`${
@@ -21,18 +23,43 @@ const CheckoutSideMenu = () => {
           <XCircleIcon className="w-6 h-6" />
         </div>
       </div>
-      <div className=" overflow-y-scroll">
-      {
-      context.cartProducts.map((product) => (
-        <OrderCard
-          key={product.id}
-          title={product.title}
-          imageUrl={product.image}
-          price={product.price}
-        />
-      ))}
+      <div className="overflow-y-scroll flex-1 px-1">
+        <div>
+          {
+              context.cartProducts.map((product) => (
+              <OrderCard
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                imageUrl={product.image}
+                price={product.price}
+                removeFromCart = {context.removeFromCart}
+                
+              />
+            ))
+          }
+
+        </div>
       </div>
-     
+      <div className=" p-5">
+        <p className="flex justify-between items-center">
+          <span className=" font-light ">Total:</span>
+          <span className=" font-medium">
+            ${totalPrice(context.cartProducts).toFixed(2)}
+          </span>
+        </p>
+      </div>
+      <div className="flex flex-col items-center w-full p-5">
+        <Link to='my-orders/last' className="w-full">
+          <button
+            className="w-full h-12 bg-black text-white rounded-lg"
+            onClick={() => context.handleCheckout()}
+          >
+            Checkout
+          </button>
+        </Link>    
+        
+      </div>
     </aside>
   );
 };
