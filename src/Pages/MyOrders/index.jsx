@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { EcommerceContext } from "../../EcommerceContext/EcommerceContext"
 import Layout from "../../Components/Layout"
 import OrdersCard from "../../Components/OrdersCard"
-import { ChevronLeftIcon } from '@heroicons/react/24/outline'
+
 
 
 function MyOrders() {
@@ -19,7 +19,7 @@ function MyOrders() {
           context.order.map((order, index) => (
             // Usaremos index Solo como ejemplo didácto, React no recomieda el uso de index
             // porque puede impactar en el rendimiento y en el estado del componente.
-            <Link key={index} to={`/my-orders/${index}`} className="border border-gray-500">
+            <Link key={index} to={`/my-orders/${index}`} className=" cursor-default" >
                 <OrdersCard
                   totalPrice = {order.totalPrice}
                   totalProducts = {order.totalProducts}

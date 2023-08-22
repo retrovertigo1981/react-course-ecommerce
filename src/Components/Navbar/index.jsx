@@ -7,58 +7,63 @@ import { ShoppingBagIcon } from '@heroicons/react/24/outline'
 const Navbar = () => {
     const activeStyle = 'underline underline-offset-4'
     const context = useContext(EcommerceContext)
-    
+    const allproducts = () => {
+        context.setFilteredItemsByCategory(null)
+        context.setSearchItemsByCategory('')
+
+    }
     
     return (
         <nav className="flex justify-between items-center fixed top-0 z-10 w-full py-5 px-8 text-sm font-light bg-white">
             <ul className="flex items-center gap-3">
                 <li className="font-bold text-lg">
-                    <NavLink to='/'>
+                    <NavLink to='/'
+                    onClick={() => allproducts()}
+                    >
                         Shopi
                     </NavLink>
                 </li>
                 <li>
                     <NavLink 
                         to='/'
+                        onClick={() => allproducts()}
                         className={({isActive}) => isActive ? activeStyle : undefined }>
                         All
                     </NavLink>
                 </li>
                 <li>
                     <NavLink 
-                        to='/clothes'
+                        to='/mens-clothing'
+                        onClick={() => context.setSearchItemsByCategory(`men's clothing`)}
                         className={({isActive}) => isActive ? activeStyle : undefined }>
-                        Clothes
+                        Men&apos;s clothing
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink 
+                        to='/jewelery'
+                        onClick={() => context.setSearchItemsByCategory('jewelery')}
+                        className={({isActive}) => isActive ? activeStyle : undefined }>
+                        Jewelery
                     </NavLink>
                 </li>
                 <li>
                     <NavLink 
                         to='/electronics'
+                        onClick={() => context.setSearchItemsByCategory('electronics')}
                         className={({isActive}) => isActive ? activeStyle : undefined }>
                         Electronics
                     </NavLink>
                 </li>
                 <li>
                     <NavLink 
-                        to='/furnitures'
+                        to='/womens-clothing'
+                        onClick={() => context.setSearchItemsByCategory(`women's clothing`)}
                         className={({isActive}) => isActive ? activeStyle : undefined }>
-                        Furnitures
+                        Women&apos;s clothing
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink 
-                        to='/toys'
-                        className={({isActive}) => isActive ? activeStyle : undefined }>
-                        Toys
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink 
-                        to='/others'
-                        className={({isActive}) => isActive ? activeStyle : undefined }>
-                        Others
-                    </NavLink>
-                </li>
+              
             </ul>
             <ul className="flex items-center gap-3">
                 <li className="text-black/60">

@@ -6,7 +6,7 @@ const OrderCard = (props) => {
 
   return (
     <div className="flex justify-between items-center my-5 mx-2">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 mr-2">
         <figure className="w-10 h-10">
           <img
             className="w-full h-full rounded-lg object-contain"
@@ -18,9 +18,7 @@ const OrderCard = (props) => {
       </div>
       <div className="flex items-center gap-2">
         <p className=" text-sm font-bold">${price}</p>
-        {removeFromCart && (
-          <XMarkIcon
-            className="w-6 h-6 text-black cursor-pointer"
+        {removeFromCart && (<XMarkIcon className="w-6 h-6 text-black cursor-pointer"
             onClick={() => removeFromCart(id)}
           />
         )}
