@@ -69,18 +69,28 @@ const EcommerceProvider = ({ children }) => {
 
   // Get Products
 
-  const [items, setItems] = useState(null);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((response) => response.json())
-      .then((data) => setItems(data));
-  }, []);
+    const fetchItems = async () => {
+      try {
+        const response = await fetch("https://fakestoreapi.com/products");
+        const data = await response.json();
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+    if (items.length === 0) {
+      fetchItems();
+    }
+  }, [items]);
 
   // Get Products by title
 
   const [searchByTitle, setSearchByTitle] = useState("");
-  const [filteredItems, setFilteredItems] = useState(null);
+  const [filteredItems, setFilteredItems] = useState([]);
   const [filteredItemsByCategory, setFilteredItemsByCategory] = useState(null);
 
   const handleSearchByTitle = (event) => {
@@ -105,9 +115,11 @@ const EcommerceProvider = ({ children }) => {
     if (searchItemsByCategory)
     setFilteredItemsByCategory(filteredItemsCategory(items, searchItemsByCategory));
   }, [items, searchByTitle, searchItemsByCategory]);
-
+  
+  
   console.log(searchItemsByCategory);
-  console.log(filteredItems);
+  console.log(filteredItems.length);
+  console.log(filteredItems.value);
 
   return (
     <EcommerceContext.Provider
