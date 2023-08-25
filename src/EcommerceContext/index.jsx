@@ -44,18 +44,20 @@ const EcommerceProvider = ({ children }) => {
       alert(
         "El carrito de productos está vacío. Agrega productos antes de realizar el pedido."
       );
-      return; // Detener la función si el carrito está vacío
+      
+      window.location.reload()
+       return;// Detener la función si el carrito está vacío
     }
-
-    const currentDate = new Date();
-    const formattedDate = `${currentDate
+    if (cartProducts.length > 0) {
+      const currentDate = new Date();
+      const formattedDate = `${currentDate
       .getDate()
       .toString()
       .padStart(2, "0")}-${(currentDate.getMonth() + 1)
       .toString()
       .padStart(2, "0")}-${currentDate.getFullYear()}`;
 
-    const orderToAdd = {
+      const orderToAdd = {
       date: formattedDate,
       products: cartProducts,
       totalProducts: cartProducts.length,
@@ -65,6 +67,8 @@ const EcommerceProvider = ({ children }) => {
     setCartProducts([]);
     setCount(0);
     closeCheckoutSideMenu();
+    }
+    
   };
 
   // Get Products
@@ -90,8 +94,9 @@ const EcommerceProvider = ({ children }) => {
   // Get Products by title
 
   const [searchByTitle, setSearchByTitle] = useState("");
-  const [filteredItems, setFilteredItems] = useState([]);
+  const [filteredItems, setFilteredItems] = useState(null);
   const [filteredItemsByCategory, setFilteredItemsByCategory] = useState(null);
+  const [searchItemsByCategory, setSearchItemsByCategory] = useState("");
 
   const handleSearchByTitle = (event) => {
     setSearchByTitle(event.target.value);
@@ -103,7 +108,6 @@ const EcommerceProvider = ({ children }) => {
     );
   };
 
-  const [searchItemsByCategory, setSearchItemsByCategory] = useState("");
 
   const filteredItemsCategory = (items, searchItemsByCategory) => {
     return items?.filter((item) => item.category === searchItemsByCategory);
@@ -112,14 +116,21 @@ const EcommerceProvider = ({ children }) => {
   useEffect(() => {
     if (searchByTitle)
       setFilteredItems(filteredItemsbyTitle(items, searchByTitle));
-    if (searchItemsByCategory)
-    setFilteredItemsByCategory(filteredItemsCategory(items, searchItemsByCategory));
-  }, [items, searchByTitle, searchItemsByCategory]);
+    if (searchItemsByCategory) {
+      setFilteredItemsByCategory(filteredItemsCategory(items, searchItemsByCategory));
+      setFilteredItems(null)
+      setSearchByTitle("")
+      
+    }
+    
+  }, [items, searchByTitle, searchItemsByCategory, ]);
   
   
-  console.log(searchItemsByCategory);
-  console.log(filteredItems.length);
-  console.log(filteredItems.value);
+  // console.log(filteredItemsByCategory);
+  // console.log(filteredItems.length);
+  // console.log(filteredItems);
+  // console.log(searchByTitle)
+ 
 
   return (
     <EcommerceContext.Provider

@@ -13,7 +13,7 @@ function Home() {
       return context.filteredItems?.map((item) => (
         <Card key={item.id} data={item} />
       ));
-    } else if (context.filteredItemsByCategory?.length > 0) {
+    } else if (context.filteredItemsByCategory?.length > 0 ) {
       return context.filteredItemsByCategory?.map((item) => (
         <Card key={item.id} data={item} />
       ));
@@ -23,7 +23,10 @@ function Home() {
   };
 
   const renderEmptySearch = () => {
-    if (context.filteredItems?.length === 0 && context.searchByTitle?.length > 0) {
+    if (
+      context.filteredItems?.length === 0 &&
+      context.searchByTitle?.length > 0
+    ) {
       return <EmptySearchResult />;
     }
   };
@@ -36,10 +39,10 @@ function Home() {
             className=" rounded-lg border border-gray-300 w-full h-full p-2 focus:outline-none"
             type="text"
             placeholder="Search a Product"
+            value={context.searchByTitle}
             onChange={(event) => context.handleSearchByTitle(event)}
           />
           <span className="absolute top-[50%] translate-y-[-50%] right-2">
-            {" "}
             <MagnifyingGlassIcon className="w-6 h-6 text-gray-400" />
           </span>
         </div>
@@ -55,7 +58,6 @@ function Home() {
       {renderInput()}
       {renderEmptySearch()}
       <div className="grid gap-6 grid-cols-4 w-full max-w-screen-lg">
-        
         {renderView()}
       </div>
     </Layout>

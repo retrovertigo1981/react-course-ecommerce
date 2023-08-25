@@ -33,7 +33,8 @@ const AppRoutes = () => {
 
 function App() {
   return (
-    <EcommerceProvider>
+    <div className="scroll">
+       <EcommerceProvider>
       <BrowserRouter>
         <Navbar />
         <Layout>
@@ -43,6 +44,8 @@ function App() {
         </Layout>
       </BrowserRouter>
     </EcommerceProvider>
+    </div>
+   
   );
 }
 
