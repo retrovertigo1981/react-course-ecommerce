@@ -23,7 +23,7 @@ function MyOrder() {
           <h1>My Order</h1>
         </div>
 
-        <div className="flex flex-col w-full">
+        <div className="flex flex-col">
         <div>
           {
             context.order?.[indexOrder]?.products.map( product => (
